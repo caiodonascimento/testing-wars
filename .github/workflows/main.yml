@@ -471,7 +471,8 @@ jobs:
             --tag test-type=chainsaw \
             --tag pr=PR-${{ github.run_id }} \
             --tag argocd-deployment=backend-vcluster-pr-$PR_NUMBER \
-            --tag demo=gitopscon-chainsaw
+            --tag demo=cloudnativos-demo \
+            --config branch="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}" \
 
       - name: Run Backend Suite Tests with Testkube in vCluster
         id: run-k6-tests
@@ -487,8 +488,9 @@ jobs:
             --tag test-type=unit \
             --tag pr=PR-${{ github.run_id }} \
             --tag argocd-deployment=backend-vcluster-pr-$PR_NUMBER \
-            --tag demo=gitopscon-chainsaw
-            --variable baseUrl=http://backend-vcluster-pr-$PR_NUMBER.my-app.svc:3000
+            --tag demo=cloudnativos-demo \
+            --config branch="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}" \
+            --config baseUrl=http://backend-vcluster-pr-$PR_NUMBER.my-app.svc:3000
 
       # ==================== Cleanup Module ====================
       - name: Cleanup Testkube Runner
